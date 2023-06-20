@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+//    implementation 'io.quarkus:quarkus-jdbc-h2'
+    implementation 'io.quarkus:quarkus-jdbc-mysql'
+    implementation 'io.quarkus:quarkus-openshift'
+    implementation 'io.quarkus:quarkus-rest-client-jackson'
+    implementation 'io.quarkus:quarkus-rest-client'
+    implementation 'io.quarkus:quarkus-hibernate-orm-panache'
+    implementation 'io.quarkus:quarkus-smallrye-openapi'
+    implementation 'io.quarkus:quarkus-config-yaml'
+    implementation 'io.quarkus:quarkus-resteasy'
+    implementation 'io.quarkus:quarkus-resteasy-jackson'
+    implementation 'io.quarkus:quarkus-arc'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+
+//    implementation 'io.quarkus:quarkus-security'
+//    compileOnly 'org.projectlombok:lombok:1.18.28'
+//    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+//
+//    testCompileOnly 'org.projectlombok:lombok:1.18.28'
+//    testAnnotationProcessor 'org.projectlombok:lombok:1.18.28'
+}
+
+group 'com.rjtmahinay'
+version '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
