@@ -1,4 +1,6 @@
 quarkus:
+  info:
+    enabled: true
   hibernate-orm:
     database:
       generation: update
@@ -8,27 +10,60 @@ quarkus:
       scope: jakarta.enterprise.context.ApplicationScoped
   swagger-ui:
     always-include: true
+  datasource:
+    db-kind: h2
 
-"%prod":
+## Dev
+"%dev":
   quarkus:
+    package:
+      type: mutable-jar
+    live-reload:
+      password: ${DEV_PASSWORD}
+    container-image:
+      build: true
     kubernetes-client:
-      trust-certs: false
-      api-server-url: https://api.sandbox-m2.ll9k.p1.openshiftapps.com:6443
-      token: sha256~1RMrFrD0A8dpPZcfTDzLNBXtXnmC6CHtFEJR9NE4T3Q
+      trust-certs: true
+      token: ${QUARKUS_KUBERNETES_CLIENT_TOKEN}
+    kubernetes:
+      deployment-target: openshift
+      deploy: true
     openshift:
       route:
         expose: true
       env:
-        secrets: mysql
-    kubernetes:
-      deploy: true
-    s2i:
-      base-jvm-image: registry.access.redhat.com/ubi8/openjdk-17:1.16-1
-    datasource:
-      db-kind: mysql
-      jdbc:
-        url: jdbc:mysql://mysql.rjtmahinay-dev.svc.cluster.local:3306/demo
-      password: ${database-password}
-      username: ${database-user}
+        vars:
+          quarkus-launch-devmode: true
+
+## Remote Development
+#"%dev":
+#  quarkus:
+#    package:
+#      type: mutable-jar
+#    live-reload:
+#      password: ${DEV_PASSWORD}
+#      url: http://quarkus-java-rjtmahinay-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+
+#"%prod":
+#  quarkus:
+#    kubernetes-client:
+#      trust-certs: true
+#      api-server-url: ${OPENSHIFT_URL}
+#      token: ${QUARKUS_KUBERNETES_CLIENT_TOKEN}
+#    openshift:
+#      route:
+#        expose: true
+#      env:
+#        secrets: mysql
+#    kubernetes:
+#      deploy: true
+#    s2i:
+#      base-jvm-image: registry.access.redhat.com/ubi8/openjdk-17:1.16-1
+#    datasource:
+#      db-kind: mysql
+#      jdbc:
+#        url: jdbc:mysql://mysql.rjtmahinay-dev.svc.cluster.local:3306/demo
+#      password: ${database-password}
+#      username: ${database-user}
 
 

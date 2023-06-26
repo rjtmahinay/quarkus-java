@@ -15,6 +15,7 @@
 package com.rjtmahinay.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
 
 @Entity
@@ -22,4 +23,5 @@ public class Employee extends PanacheEntity {
 
     public String name;
     public String title;
+    public String active;
 }

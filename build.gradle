@@ -9,8 +9,10 @@ repositories {
 }
 
 dependencies {
-//    implementation 'io.quarkus:quarkus-jdbc-h2'
-    implementation 'io.quarkus:quarkus-jdbc-mysql'
+    implementation 'io.quarkus:quarkus-cache'
+    implementation 'io.quarkus:quarkus-info'
+    implementation 'io.quarkus:quarkus-jdbc-h2'
+//    implementation 'io.quarkus:quarkus-jdbc-mysql'
     implementation 'io.quarkus:quarkus-openshift'
     implementation 'io.quarkus:quarkus-rest-client-jackson'
     implementation 'io.quarkus:quarkus-rest-client'
